@@ -12,11 +12,11 @@ public class GameController
         _reader = reader;
     }
     
-    public GameBoard CreateGameBoard()
+    public World CreateWorld()
     {
-        var boardRows = int.Parse(_reader.Read());
-        var boardColumns = int.Parse(_reader.Read());
+        var rows = int.Parse(_reader.Read());
+        var columns = int.Parse(_reader.Read());
 
-        return new GameBoard(boardRows, boardColumns);
+        return new World(rows, columns);
     }
 }
