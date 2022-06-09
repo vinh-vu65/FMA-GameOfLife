@@ -19,6 +19,6 @@ public class WorldTests
     {
         var expectedPopulation = 150;
         
-        Assert.Collection(_sut.Population, expectedPopulation);
+        Assert.Equal(_sut.Population.Length, expectedPopulation);
     }
 }
