@@ -10,4 +10,6 @@ public class World
         Rows = rows;
         Columns = columns;
     }
+    
+    
 }
