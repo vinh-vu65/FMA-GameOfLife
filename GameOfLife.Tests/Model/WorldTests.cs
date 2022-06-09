@@ -21,4 +21,16 @@ public class WorldTests
         
         Assert.Equal(_sut.Population.Length, expectedPopulation);
     }
+
+    [Theory]
+    [InlineData(0,0)]
+    [InlineData(12,3)]
+    [InlineData(14,9)]
+    public void World_ShouldPopulateCellsWithCorrespondingXYValuesInGrid_WhenConstructed(int x, int y)
+    {
+        var cell = _sut.Population[y, x];
+        
+        Assert.Equal(x, cell.X);
+        Assert.Equal(y, cell.Y);
+    }
 }
