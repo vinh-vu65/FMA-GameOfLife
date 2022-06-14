@@ -22,25 +22,23 @@ public class WorldAnalyser
     public List<Cell> GetNeighbours(int x, int y)
     {
         var output = new List<Cell>();
-        
-        var upperY = y - 1;
-        var lowerY = y + 1;
-        var leftX = x - 1;
-        var rightX = x + 1;
 
-        upperY = upperY < 0 ? _maxYValue : upperY;
-        leftX = leftX < 0 ? _maxXValue : leftX;
-        upperY = upperY > _maxYValue ? 0 : upperY;
-        rightX = rightX > _maxXValue ? 0 : rightX;
-        
-        output.Add(World[upperY, leftX]);
-        output.Add(World[upperY, x]);
-        output.Add(World[upperY, rightX]);
-        output.Add(World[y, leftX]);
-        output.Add(World[y, rightX]);
-        output.Add(World[lowerY, leftX]);
-        output.Add(World[lowerY, x]);
-        output.Add(World[lowerY, rightX]);
+        for (var i = y-1; i <= y+1; i++)
+        {
+            for (var j = x-1; j <= x+1; j++)
+            {
+                var cellY = i;
+                var cellX = j;
+                
+                if (i == y && j == x) continue;
+                if (i < 0) cellY = _maxYValue;
+                if (j < 0) cellX = _maxXValue;
+                if (i > _maxYValue) cellY = 0;
+                if (j > _maxXValue) cellX = 0;
+                
+                output.Add(World[cellY, cellX]);
+            }
+        }
 
         return output;
     }
