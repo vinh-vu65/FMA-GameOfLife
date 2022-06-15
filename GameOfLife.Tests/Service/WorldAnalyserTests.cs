@@ -108,7 +108,7 @@ public class WorldAnalyserTests
     }
 
     [Fact]
-    public void CountAliveNeighbours_ShouldReturnNumberOfAliveCells_WhenGivenListOfCells()
+    public void CountAliveCells_ShouldReturnNumberOfAliveCells_WhenGivenListOfCells()
     {
         var cellToAdd = new Cell(2, 1)
         {
@@ -122,6 +122,23 @@ public class WorldAnalyserTests
             new Cell(3,1)
         };
         var expected = 3;
+
+        var result = _sut.CountAliveCells(neighbours);
+
+        Assert.Equal(expected,result);
+    }
+    
+    [Fact]
+    public void CountAliveCells_ShouldReturnZero_WhenGivenListOfCellsHaveNoAliveCells()
+    {
+        var cellToAdd = new Cell(2, 1);
+        var neighbours = new List<Cell>
+        {
+            cellToAdd,
+            cellToAdd,
+            cellToAdd,
+        };
+        var expected = 0;
 
         var result = _sut.CountAliveCells(neighbours);
 
