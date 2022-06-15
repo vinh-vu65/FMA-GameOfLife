@@ -42,4 +42,6 @@ public class WorldAnalyser
 
         return output;
     }
+
+    public int CountAliveCells(List<Cell> neighbours) => neighbours.Count(x => x.IsAlive);
 }
