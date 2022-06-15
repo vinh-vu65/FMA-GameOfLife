@@ -3,20 +3,23 @@ using GameOfLife.Code.Model;
 
 namespace GameOfLife.Code.Controller;
 
-public class GameController
+public class WorldController
 {
     private readonly IReader _reader;
+    public World World { get; private set; } = null!;
     
-    public GameController(IReader reader)
+    public WorldController(IReader reader)
     {
         _reader = reader;
     }
     
-    public World CreateWorld()
+    public void CreateWorld()
     {
         var rows = int.Parse(_reader.Read());
         var columns = int.Parse(_reader.Read());
 
-        return new World(rows, columns);
+        World = new World(rows, columns);
     }
+    
+    
 }
