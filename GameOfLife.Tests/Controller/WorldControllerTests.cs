@@ -7,14 +7,14 @@ using Xunit;
 
 namespace GameOfLife.Tests.Controller;
 
-public class GameControllerTests
+public class WorldControllerTests
 {
-    private readonly GameController _sut;
+    private readonly WorldController _sut;
     private readonly IReader _reader = Substitute.For<IReader>();
 
-    public GameControllerTests()
+    public WorldControllerTests()
     {
-        _sut = new GameController(_reader);
+        _sut = new WorldController(_reader);
     }
     
     [Theory]
@@ -24,8 +24,9 @@ public class GameControllerTests
     {
         var expected = new World(rows, columns);
         _reader.Read().Returns($"{rows}", $"{columns}");
-
-        var result = _sut.CreateWorld();
+        _sut.CreateWorld();
+        
+        var result = _sut.World;
         
         Assert.Equal(expected.Rows, result.Rows);
         Assert.Equal(expected.Columns, result.Columns);
