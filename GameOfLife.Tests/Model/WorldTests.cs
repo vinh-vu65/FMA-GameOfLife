@@ -33,4 +33,15 @@ public class WorldTests
         Assert.Equal(x, cell.X);
         Assert.Equal(y, cell.Y);
     }
+
+    [Theory]
+    [InlineData(0,0)]
+    [InlineData(12,3)]
+    [InlineData(14,9)]
+    public void SetCellToAlive_ShouldChangeIsAlivePropertyOfCellInPopulation_WhenGivenCellCoordinates(int x, int y)
+    {
+        _sut.SetCellToAlive(x, y);
+        
+        Assert.True(_sut.Population[y, x].IsAlive);
+    }
 }
