@@ -106,4 +106,25 @@ public class WorldAnalyserTests
         
         Assert.Equal(expected, result);
     }
+
+    [Fact]
+    public void CountAliveNeighbours_ShouldReturnNumberOfAliveCells_WhenGivenListOfCells()
+    {
+        var cellToAdd = new Cell(2, 1)
+        {
+            IsAlive = true
+        };
+        var neighbours = new List<Cell>
+        {
+            cellToAdd,
+            cellToAdd,
+            cellToAdd,
+            new Cell(3,1)
+        };
+        var expected = 3;
+
+        var result = _sut.CountAliveCells(neighbours);
+
+        Assert.Equal(expected,result);
+    }
 }
