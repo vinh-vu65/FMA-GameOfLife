@@ -29,4 +29,9 @@ public class World
     {
         Population[y, x].IsAlive = true;
     }
+    
+    public void SetCellToDead(int x, int y)
+    {
+        Population[y, x].IsAlive = false;
+    }
 }
