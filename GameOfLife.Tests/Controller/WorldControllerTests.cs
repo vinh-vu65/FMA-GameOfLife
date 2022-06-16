@@ -55,7 +55,7 @@ public class WorldControllerTests
         var aliveList = new List<Cell>
         {
             new(1, 0) {IsAlive = true},
-            new(2, 0) {IsAlive = true},
+            new(1, 2) {IsAlive = true},
             new(3, 0) {IsAlive = true}
         };
         var world = _sut.CreateWorld(aliveList);
@@ -72,8 +72,8 @@ public class WorldControllerTests
     {
         var aliveList = new List<Cell>
         {
+            new(3, 2) {IsAlive = true},
             new(1, 0) {IsAlive = true},
-            new(2, 0) {IsAlive = true},
             new(2, 1) {IsAlive = true}
         };
         var world = _sut.CreateWorld(aliveList);
@@ -91,16 +91,17 @@ public class WorldControllerTests
         var aliveList = new List<Cell>
         {
             new(1, 0) {IsAlive = true},
-            new(2, 2) {IsAlive = true},
-            new(3, 0) {IsAlive = true},
             new(1, 2) {IsAlive = true},
+            new(3, 0) {IsAlive = true},
+            new(2, 1) {IsAlive = true},
         };
         var world = _sut.CreateWorld(aliveList);
         var expected = world.Population[1, 2];
+        var expectedLength = 3;
 
         var result = _sut.DetermineNextGeneration(world.Population);
 
         Assert.Contains(expected, result);
-        Assert.Single(result);
+        Assert.Equal(expectedLength, result.Count);
     }
 }
