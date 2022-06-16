@@ -1,25 +1,34 @@
 using GameOfLife.Code.IO;
 using GameOfLife.Code.Model;
+using GameOfLife.Code.Service;
 
 namespace GameOfLife.Code.Controller;
 
 public class WorldController
 {
-    private readonly IReader _reader;
-    public World World { get; private set; } = null!;
+    private readonly int _rows;
+    private readonly int _columns;
+    private readonly WorldAnalyser _analyser;
     
-    public WorldController(IReader reader)
+    public WorldController(int rows, int columns)
     {
-        _reader = reader;
+        _rows = rows;
+        _columns = columns;
+        _analyser = new WorldAnalyser(rows, columns);
     }
     
-    public void CreateWorld()
+    public World CreateWorld(List<Cell> aliveCells)
     {
-        var rows = int.Parse(_reader.Read());
-        var columns = int.Parse(_reader.Read());
+        var output = new World(_rows, _columns);
+        BringCellsToLife(aliveCells, output);
+        return output;
+    }
 
-        World = new World(rows, columns);
+    public void BringCellsToLife(List<Cell> cells, World world)
+    {
+        foreach (var cell in cells)
+        {
+            world.SetCellToAlive(cell.X, cell.Y);
+        }
     }
-    
-    
 }
