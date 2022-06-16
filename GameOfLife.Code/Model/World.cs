@@ -2,16 +2,12 @@ namespace GameOfLife.Code.Model;
 
 public class World
 {
-    public int Rows { get; }
-    public int Columns { get; }
     public Cell[,] Population { get; }
 
     public World(int rows, int columns)
     {
-        Rows = rows;
-        Columns = columns;
         Population = new Cell[rows,columns];
-        PopulateWorld(Rows, Columns);
+        PopulateWorld(rows, columns);
     }
 
     private void PopulateWorld(int rows, int columns)
@@ -28,10 +24,5 @@ public class World
     public void SetCellToAlive(int x, int y)
     {
         Population[y, x].IsAlive = true;
-    }
-    
-    public void SetCellToDead(int x, int y)
-    {
-        Population[y, x].IsAlive = false;
     }
 }
