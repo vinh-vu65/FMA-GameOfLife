@@ -4,7 +4,6 @@ namespace GameOfLife.Code.Service;
 
 public class WorldAnalyser
 {
-    private Cell[,] World { get; set; } = null!;
     private readonly int _maxYValue;
     private readonly int _maxXValue;
 
@@ -14,12 +13,7 @@ public class WorldAnalyser
         _maxYValue = rows - 1;
     }
 
-    public void SetWorld(Cell[,] world)
-    {
-        World = world;
-    }
-    
-    public List<Cell> GetNeighbours(int x, int y)
+    public List<Cell> GetNeighbours(int x, int y, Cell[,] grid)
     {
         var output = new List<Cell>();
 
@@ -36,7 +30,7 @@ public class WorldAnalyser
                 if (i > _maxYValue) cellY = 0;
                 if (j > _maxXValue) cellX = 0;
                 
-                output.Add(World[cellY, cellX]);
+                output.Add(grid[cellY, cellX]);
             }
         }
 

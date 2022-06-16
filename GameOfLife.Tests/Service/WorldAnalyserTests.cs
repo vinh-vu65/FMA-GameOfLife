@@ -14,7 +14,6 @@ public class WorldAnalyserTests
     {
         _sut = new WorldAnalyser(6, 6);
         _world = new World(6, 6).Population;
-        _sut.SetWorld(_world);
     }
     
     [Fact]
@@ -22,7 +21,7 @@ public class WorldAnalyserTests
     {
         var expectedLength = 8;
         
-        var result = _sut.GetNeighbours(2,1);
+        var result = _sut.GetNeighbours(2,1, _world);
         
         Assert.Equal(expectedLength, result.Count);
     }
@@ -42,7 +41,7 @@ public class WorldAnalyserTests
             _world[2, 3]
         };
         
-        var result = _sut.GetNeighbours(2, 1);
+        var result = _sut.GetNeighbours(2, 1, _world);
         
         Assert.Equal(expected, result);
     }
@@ -62,7 +61,7 @@ public class WorldAnalyserTests
             _world[1, 3]
         };
         
-        var result = _sut.GetNeighbours(2, 0);
+        var result = _sut.GetNeighbours(2, 0, _world);
         
         Assert.Equal(expected, result);
     }
@@ -82,7 +81,7 @@ public class WorldAnalyserTests
             _world[3, 1]
         };
         
-        var result = _sut.GetNeighbours(0, 2);
+        var result = _sut.GetNeighbours(0, 2, _world);
         
         Assert.Equal(expected, result);
     }
@@ -102,7 +101,7 @@ public class WorldAnalyserTests
             _world[1, 1]
         };
         
-        var result = _sut.GetNeighbours(0, 0);
+        var result = _sut.GetNeighbours(0, 0, _world);
         
         Assert.Equal(expected, result);
     }
