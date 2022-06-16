@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using GameOfLife.Code.Controller;
-using GameOfLife.Code.IO;
 using GameOfLife.Code.Model;
-using NSubstitute;
 using Xunit;
 
 
@@ -11,43 +9,43 @@ namespace GameOfLife.Tests.Controller;
 public class WorldControllerTests
 {
     private readonly WorldController _sut;
-    private readonly IReader _reader = Substitute.For<IReader>();
+    private readonly int _rows = 6;
+    private readonly int _columns = 6;
 
     public WorldControllerTests()
     {
-        _sut = new WorldController(_reader);
-        _reader.Read().Returns("6");
+        _sut = new WorldController(_rows, _columns);
     }
     
     [Theory]
     [InlineData(10, 10)]
     [InlineData(5, 15)]
-    public void CreateWorld_ShouldReturnWorldGrid_WhenUserInputsSize(int rows, int columns)
+    public void CreateWorld_ShouldReturnWorldGridOfGivenDimensions_WhenDimensionsAreGivenInConstructor(int rows, int columns)
     {
-        var expected = new World(rows, columns);
-        _reader.Read().Returns($"{rows}", $"{columns}");
+        var sut = new WorldController(rows, columns);
+        var emptyList = new List<Cell>();
         
-        var result = _sut.CreateWorld();
+        var result = sut.CreateWorld(emptyList);
         
-        Assert.Equal(expected.Rows, result.Rows);
-        Assert.Equal(expected.Columns, result.Columns);
+        Assert.Equal(rows, result.Population.GetLength(0));
+        Assert.Equal(columns, result.Population.GetLength(1));
     }
 
     [Fact]
-    public void BringCellsToLife_ShouldChangeAllCellsToAlive_WhenGivenListOfCellsAndWorld()
+    public void CreateWorld_ShouldChangeGivenCellsToAliveInWorldOutput_WhenGivenListOfCells()
     {
-        var world = _sut.CreateWorld();
         var cellsList = new List<Cell>
         {
             new(2, 1),
             new(3, 2),
             new(0, 0)
         };
-        
-        _sut.BringCellsToLife(cellsList, world);
-        
-        Assert.True(world.Population[1,2].IsAlive);
-        Assert.True(world.Population[2,3].IsAlive);
-        Assert.True(world.Population[0,0].IsAlive);
+
+        var result = _sut.CreateWorld(cellsList);
+
+        Assert.True(result.Population[1,2].IsAlive);
+        Assert.True(result.Population[2,3].IsAlive);
+        Assert.True(result.Population[0,0].IsAlive);
+        Assert.False(result.Population[5,5].IsAlive);
     }
 }
