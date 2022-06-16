@@ -43,6 +43,7 @@ public class WorldController
                 var neighbours = _analyser.GetNeighbours(j, i, world);
                 var liveNeighbours = _analyser.CountAliveCells(neighbours);
                 if (!world[i,j].IsAlive && liveNeighbours != 3) continue;
+                if (world[i,j].IsAlive && liveNeighbours is < 2 or > 3) continue;
                 
                 output.Add(world[i,j]);
             }
