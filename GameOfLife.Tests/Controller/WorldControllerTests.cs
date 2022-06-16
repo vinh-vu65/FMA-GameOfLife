@@ -50,7 +50,7 @@ public class WorldControllerTests
     }
 
     [Fact]
-    public void DetermineNextGeneration_ShouldIncludeCell_WhenGivenCellIsNotAliveAndHasExactlyThreeNeighbours()
+    public void DetermineNextGeneration_ShouldIncludeCell_WhenGivenCellIsNotAliveAndHasExactlyThreeLiveNeighbours()
     {
         var aliveList = new List<Cell>
         {
@@ -68,7 +68,7 @@ public class WorldControllerTests
     }
     
     [Fact]
-    public void DetermineNextGeneration_ShouldIncludeCell_WhenGivenCellIsAliveAndHasTwoNeighbours()
+    public void DetermineNextGeneration_ShouldIncludeCell_WhenGivenCellIsAliveAndHasTwoLiveNeighbours()
     {
         var aliveList = new List<Cell>
         {
@@ -86,14 +86,14 @@ public class WorldControllerTests
     }
     
     [Fact]
-    public void DetermineNextGeneration_ShouldIncludeCell_WhenGivenCellIsAliveAndHasThreeNeighbours()
+    public void DetermineNextGeneration_ShouldIncludeCell_WhenGivenCellIsAliveAndHasThreeLiveNeighbours()
     {
         var aliveList = new List<Cell>
         {
             new(1, 0) {IsAlive = true},
             new(1, 2) {IsAlive = true},
             new(3, 0) {IsAlive = true},
-            new(2, 1) {IsAlive = true},
+            new(2, 1) {IsAlive = true}
         };
         var world = _sut.CreateWorld(aliveList);
         var expected = world.Population[1, 2];
