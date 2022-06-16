@@ -21,7 +21,7 @@ public class World
         }
     }
 
-    public void SetCellToAlive(int x, int y)
+    public void GiveCellLife(int x, int y)
     {
         Population[y, x].IsAlive = true;
     }
