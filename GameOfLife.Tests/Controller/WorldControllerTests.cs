@@ -64,5 +64,43 @@ public class WorldControllerTests
         var result = _sut.DetermineNextGeneration(world.Population);
 
         Assert.Contains(expected, result);
+        Assert.Single(result);
+    }
+    
+    [Fact]
+    public void DetermineNextGeneration_ShouldIncludeCell_WhenGivenCellIsAliveAndHasTwoNeighbours()
+    {
+        var aliveList = new List<Cell>
+        {
+            new(1, 0) {IsAlive = true},
+            new(2, 0) {IsAlive = true},
+            new(2, 1) {IsAlive = true}
+        };
+        var world = _sut.CreateWorld(aliveList);
+        var expected = world.Population[1, 2];
+
+        var result = _sut.DetermineNextGeneration(world.Population);
+
+        Assert.Contains(expected, result);
+        Assert.Single(result);
+    }
+    
+    [Fact]
+    public void DetermineNextGeneration_ShouldIncludeCell_WhenGivenCellIsAliveAndHasThreeNeighbours()
+    {
+        var aliveList = new List<Cell>
+        {
+            new(1, 0) {IsAlive = true},
+            new(2, 2) {IsAlive = true},
+            new(3, 0) {IsAlive = true},
+            new(1, 2) {IsAlive = true},
+        };
+        var world = _sut.CreateWorld(aliveList);
+        var expected = world.Population[1, 2];
+
+        var result = _sut.DetermineNextGeneration(world.Population);
+
+        Assert.Contains(expected, result);
+        Assert.Single(result);
     }
 }
