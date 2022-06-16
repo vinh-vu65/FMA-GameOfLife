@@ -54,14 +54,14 @@ public class WorldControllerTests
     {
         var aliveList = new List<Cell>
         {
-            new(1, 1) {IsAlive = true},
-            new(2, 1) {IsAlive = true},
-            new(3, 1) {IsAlive = true}
+            new(1, 0) {IsAlive = true},
+            new(2, 0) {IsAlive = true},
+            new(3, 0) {IsAlive = true}
         };
         var world = _sut.CreateWorld(aliveList);
-        var expected = world.Population[2, 2];
+        var expected = world.Population[1, 2];
 
-        var result = _sut.DetermineNextGeneration(2, 2, world.Population);
+        var result = _sut.DetermineNextGeneration(world.Population);
 
         Assert.Contains(expected, result);
     }
