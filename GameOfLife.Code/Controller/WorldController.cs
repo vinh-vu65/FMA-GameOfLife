@@ -19,33 +19,33 @@ public class WorldController
     public World CreateWorld(List<Cell> aliveCells)
     {
         var output = new World(_rows, _columns);
-        BringCellsToLife(aliveCells, output);
+        GiveLife(aliveCells, output);
         return output;
     }
 
-    private void BringCellsToLife(List<Cell> cells, World world)
+    private void GiveLife(List<Cell> cells, World world)
     {
         foreach (var cell in cells)
         {
-            world.SetCellToAlive(cell.X, cell.Y);
+            world.GiveCellLife(cell.X, cell.Y);
         }
     }
 
-    public List<Cell> DetermineNextGeneration(Cell[,] world)
+    public List<Cell> DetermineNextGeneration(Cell[,] grid)
     {
         var output = new List<Cell>();
-        var rows = world.GetLength(0);
-        var columns = world.GetLength(1);
-        for (var i = 0; i < rows; i++)
+        
+        for (var i = 0; i < _rows; i++)
         {
-            for (int j = 0; j < columns; j++)
+            for (var j = 0; j < _columns; j++)
             {
-                var neighbours = _analyser.GetNeighbours(j, i, world);
+                var cell = grid[i, j];
+                var neighbours = _analyser.GetNeighbours(j, i, grid);
                 var liveNeighbours = _analyser.CountAliveCells(neighbours);
-                if (!world[i,j].IsAlive && liveNeighbours != 3) continue;
-                if (world[i,j].IsAlive && liveNeighbours is < 2 or > 3) continue;
-                
-                output.Add(world[i,j]);
+                if (cell.IsAlive && liveNeighbours is < 2 or > 3) continue;
+                if (!cell.IsAlive && liveNeighbours != 3) continue;
+
+                output.Add(cell);
             }
         }
 
