@@ -1,8 +1,5 @@
-using System.Collections.Generic;
 using GameOfLife.Code.Controller;
 using GameOfLife.Code.IO;
-using GameOfLife.Code.Model;
-using GameOfLife.Code.Service;
 using NSubstitute;
 using Xunit;
 
@@ -25,6 +22,6 @@ public class ApplicationTests
     {
         _sut.Setup();
 
-        _gameService.GetSeed().Received(1);
+        _gameService.Received(1).GetSeed();
     }
 }
