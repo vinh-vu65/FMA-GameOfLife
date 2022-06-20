@@ -2,7 +2,7 @@ using GameOfLife.Code.Model;
 
 namespace GameOfLife.Code.Service;
 
-public class WorldAnalyser
+public class WorldAnalyser : IWorldAnalyser
 {
     private readonly int _maxYValue;
     private readonly int _maxXValue;
