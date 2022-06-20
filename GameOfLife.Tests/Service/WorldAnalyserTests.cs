@@ -143,4 +143,48 @@ public class WorldAnalyserTests
 
         Assert.Equal(expected,result);
     }
+    
+    [Fact]
+    public void DetermineNextGeneration_ShouldIncludeCell_WhenGivenCellIsNotAliveAndHasExactlyThreeLiveNeighbours()
+    {
+        _world[0, 2].IsAlive = true;
+        _world[0, 3].IsAlive = true;
+        _world[2, 1].IsAlive = true;
+        var expected = _world[1, 2];
+
+        var result = _sut.DetermineNextGeneration(_world);
+
+        Assert.Contains(expected, result);
+        Assert.Single(result);
+    }
+    
+    [Fact]
+    public void DetermineNextGeneration_ShouldIncludeCell_WhenGivenCellIsAliveAndHasTwoLiveNeighbours()
+    {
+        _world[2, 1].IsAlive = true;
+        _world[0, 3].IsAlive = true;
+        _world[1, 2].IsAlive = true;
+        var expected = _world[1, 2];
+
+        var result = _sut.DetermineNextGeneration(_world);
+
+        Assert.Contains(expected, result);
+        Assert.Single(result);
+    }
+    
+    [Fact]
+    public void DetermineNextGeneration_ShouldIncludeCell_WhenGivenCellIsAliveAndHasThreeLiveNeighbours()
+    {
+        _world[1, 2].IsAlive = true;
+        _world[0, 2].IsAlive = true;
+        _world[0, 3].IsAlive = true;
+        _world[2, 1].IsAlive = true;
+        var expected = _world[1, 2];
+        var expectedLength = 5;
+
+        var result = _sut.DetermineNextGeneration(_world);
+
+        Assert.Contains(expected, result);
+        Assert.Equal(expectedLength, result.Count);
+    }
 }
