@@ -12,6 +12,27 @@ public class WorldAnalyser : IWorldAnalyser
         _maxXValue = columns - 1;
         _maxYValue = rows - 1;
     }
+    
+    public List<Cell> DetermineNextGeneration(Cell[,] grid)
+    {
+        var output = new List<Cell>();
+        
+        for (var i = 0; i <= _maxYValue; i++)
+        {
+            for (var j = 0; j <= _maxXValue; j++)
+            {
+                var cell = grid[i, j];
+                var neighbours = GetNeighbours(j, i, grid);
+                var liveNeighbours = CountAliveCells(neighbours);
+                if (cell.IsAlive && liveNeighbours is < 2 or > 3) continue;
+                if (!cell.IsAlive && liveNeighbours != 3) continue;
+
+                output.Add(cell);
+            }
+        }
+
+        return output;
+    }
 
     public List<Cell> GetNeighbours(int x, int y, Cell[,] grid)
     {
