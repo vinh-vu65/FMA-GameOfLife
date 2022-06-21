@@ -62,4 +62,14 @@ public class SeedGeneratorTests
         
         Assert.Equal(expected, result);
     }
+
+    [Fact]
+    public void ParseString_ShouldThrowAnException_WhenGivenFileHasLiveCellWithXValueGreaterThanXValueOfAsterisk()
+    {
+        var filePath = "exceptionTest.txt";
+        var file = _sut.ReadFile(filePath);
+        _sut.SetWorldDimensions(file);
+
+        Assert.Throws<TokenOutOfBoundsException>(() => _sut.ParseString(file));
+    }
 }
