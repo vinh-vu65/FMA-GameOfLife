@@ -1,3 +1,8 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using GameOfLife.Code.Service;
 
-Console.WriteLine("Hello, World!");
+var seed = new SeedGenerator();
+var lines = seed.ReadFile("test.txt");
+foreach (var line in lines)
+{
+    Console.WriteLine(line);
+}

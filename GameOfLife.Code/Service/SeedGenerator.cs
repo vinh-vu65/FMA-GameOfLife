@@ -1,3 +1,4 @@
+using GameOfLife.Code.Exceptions;
 using GameOfLife.Code.Model;
 
 namespace GameOfLife.Code.Service;
@@ -7,9 +8,9 @@ public class SeedGenerator
     public int Rows { get; private set; }
     public int Columns { get; private set; }
     
-    public string[] ReadFile(string filePath)
+    public string[] ReadFile(string fileName)
     {
-        return File.ReadAllLines($"../../../{filePath}");
+        return File.ReadAllLines($"../../../Seeds/{fileName}");
     }
 
     public void SetWorldDimensions(string[] seed)
@@ -27,6 +28,10 @@ public class SeedGenerator
             var line = seed[y];
             for (var x = 0; x < line.Length; x++)
             {
+                if (line.Length > Columns)
+                {
+                    throw new TokenOutOfBoundsException(y);
+                }
                 var token = line[x];
                 if (token == '#')
                 {
