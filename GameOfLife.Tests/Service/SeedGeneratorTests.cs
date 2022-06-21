@@ -25,12 +25,13 @@ public class SeedGeneratorTests
     }
 
     [Fact]
-    public void GetWorldDimensions_ShouldSetRowsAndColumns_WhenTxtFileHasXCharacterOnBottomRightCorner()
+    public void SetWorldDimensions_ShouldSetRowsAndColumns_WhenTxtFileHasAsteriskCharacterOnBottomRightCorner()
     {
         var expectedRows = 10;
         var expectedColumns = 50;
+        var file = _sut.ReadFile(_filePath);
 
-        _sut.GetWorldDimensions();
+        _sut.SetWorldDimensions(file);
         
         Assert.Equal(expectedRows, _sut.Rows);
         Assert.Equal(expectedColumns, _sut.Columns);
