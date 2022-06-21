@@ -43,7 +43,7 @@ public class SeedGeneratorTests
     public void
         ParseString_ShouldReturnListOfCellsWithCorrespondingCoordinates_WhenGivenFileWithHashtagDenotingLiveCell()
     {
-        var expected = new List<Cell>
+        var expected = new List<Coordinate>
         {
             new(0,0),
             new(1,0),
