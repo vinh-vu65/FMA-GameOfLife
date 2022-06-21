@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using GameOfLife.Code.Model;
 using GameOfLife.Code.Service;
 using Xunit;
 
@@ -35,5 +37,29 @@ public class SeedGeneratorTests
         
         Assert.Equal(expectedRows, _sut.Rows);
         Assert.Equal(expectedColumns, _sut.Columns);
+    }
+
+    [Fact]
+    public void
+        ParseString_ShouldReturnListOfCellsWithCorrespondingCoordinates_WhenGivenFileWithHashtagDenotingLiveCell()
+    {
+        var expected = new List<Cell>
+        {
+            new(0,0),
+            new(1,0),
+            new(2,0),
+            new(1,3),
+            new(0,4),
+            new(1,4),
+            new(2,4),
+            new(3,4),
+            new(1,5)
+        };
+        var file = _sut.ReadFile(_filePath);
+        _sut.SetWorldDimensions(file);
+
+        var result = _sut.ParseString(file);
+        
+        Assert.Equal(expected, result);
     }
 }
