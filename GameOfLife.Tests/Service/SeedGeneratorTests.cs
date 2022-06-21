@@ -31,5 +31,8 @@ public class SeedGeneratorTests
         var expectedColumns = 50;
 
         _sut.GetWorldDimensions();
+        
+        Assert.Equal(expectedRows, _sut.Rows);
+        Assert.Equal(expectedColumns, _sut.Columns);
     }
 }
