@@ -19,6 +19,11 @@ public class SeedParser
     {
         Rows = seed.Length;
         var lastLine = seed[Rows - 1];
+        if (!lastLine.Contains('*'))
+        {
+            throw new BoundaryNotFoundException();
+        }
+        
         Columns = lastLine.IndexOf('*') + 1;
     }
 
