@@ -6,15 +6,15 @@ using Xunit;
 
 namespace GameOfLife.Tests.Service;
 
-public class SeedGeneratorTests
+public class SeedParserTests
 {
-    private readonly SeedGenerator _sut;
-    private readonly string _filePath;
+    private readonly SeedParser _sut;
+    private readonly string _fileName;
 
-    public SeedGeneratorTests()
+    public SeedParserTests()
     {
-        _sut = new SeedGenerator();
-        _filePath = "test.txt";
+        _sut = new SeedParser();
+        _fileName = "test1.txt";
     }
     
     [Fact]
@@ -22,7 +22,7 @@ public class SeedGeneratorTests
     {
         var expectedLength = 10;
         
-        var result = _sut.ReadFile(_filePath);
+        var result = _sut.ReadFile(_fileName);
         
         Assert.Equal(expectedLength, result.Length);
     }
@@ -32,7 +32,7 @@ public class SeedGeneratorTests
     {
         var expectedRows = 10;
         var expectedColumns = 50;
-        var file = _sut.ReadFile(_filePath);
+        var file = _sut.ReadFile(_fileName);
 
         _sut.SetWorldDimensions(file);
         
@@ -56,7 +56,7 @@ public class SeedGeneratorTests
             new(3,4),
             new(1,5)
         };
-        var file = _sut.ReadFile(_filePath);
+        var file = _sut.ReadFile(_fileName);
         _sut.SetWorldDimensions(file);
 
         var result = _sut.ParseString(file);
@@ -67,8 +67,8 @@ public class SeedGeneratorTests
     [Fact]
     public void ParseString_ShouldThrowAnException_WhenGivenFileHasLiveCellWithXValueGreaterThanXValueOfAsterisk()
     {
-        var filePath = "exceptionTest.txt";
-        var file = _sut.ReadFile(filePath);
+        var fileName = "exceptionTest.txt";
+        var file = _sut.ReadFile(fileName);
         _sut.SetWorldDimensions(file);
 
         Assert.Throws<TokenOutOfBoundsException>(() => _sut.ParseString(file));
