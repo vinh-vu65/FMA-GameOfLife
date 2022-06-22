@@ -25,4 +25,16 @@
       <ProjectReference Include="..\GameOfLife.Code\GameOfLife.Code.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Seeds\test.txt" />
+      <None Remove="Seeds\exceptionTest.txt" />
+      <Content Include="Seeds\exceptionTest.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="Seeds\test1.txt" />
+      <Content Include="Seeds\test1.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>
