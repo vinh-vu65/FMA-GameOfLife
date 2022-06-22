@@ -1,16 +1,18 @@
+using System.Reflection;
 using GameOfLife.Code.Exceptions;
 using GameOfLife.Code.Model;
 
 namespace GameOfLife.Code.Service;
 
-public class SeedGenerator
+public class SeedParser
 {
     public int Rows { get; private set; }
     public int Columns { get; private set; }
     
     public string[] ReadFile(string fileName)
     {
-        return File.ReadAllLines($"../../../Seeds/{fileName}");
+        string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), $@"Seeds/{fileName}");
+        return File.ReadAllLines(path);
     }
 
     public void SetWorldDimensions(string[] seed)
