@@ -14,7 +14,7 @@ public class SeedParserTests
     public SeedParserTests()
     {
         _sut = new SeedParser();
-        _fileName = "test.txt";
+        _fileName = "testSeed.txt";
     }
     
     [Fact]
@@ -81,6 +81,5 @@ public class SeedParserTests
         var file = _sut.ReadFile(fileName);
         
         Assert.Throws<BoundaryNotFoundException>(() => _sut.SetWorldDimensions(file));
-
     }
 }
