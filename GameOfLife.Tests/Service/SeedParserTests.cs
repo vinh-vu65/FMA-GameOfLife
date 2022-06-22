@@ -14,7 +14,7 @@ public class SeedParserTests
     public SeedParserTests()
     {
         _sut = new SeedParser();
-        _fileName = "test1.txt";
+        _fileName = "test.txt";
     }
     
     [Fact]
@@ -67,10 +67,20 @@ public class SeedParserTests
     [Fact]
     public void ParseString_ShouldThrowAnException_WhenGivenFileHasLiveCellWithXValueGreaterThanXValueOfAsterisk()
     {
-        var fileName = "exceptionTest.txt";
+        var fileName = "outOfBoundsExceptionTest.txt";
         var file = _sut.ReadFile(fileName);
         _sut.SetWorldDimensions(file);
 
         Assert.Throws<TokenOutOfBoundsException>(() => _sut.ParseString(file));
+    }
+
+    [Fact]
+    public void SetWorldDimensions_ShouldThrowException_WhenLastLineInFileDoesNotContainAsterisk()
+    {
+        var fileName = "boundaryNotFoundExceptionTest.txt";
+        var file = _sut.ReadFile(fileName);
+        
+        Assert.Throws<BoundaryNotFoundException>(() => _sut.SetWorldDimensions(file));
+
     }
 }
