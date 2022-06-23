@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using GameOfLife.Code.Model;
+using GameOfLife.Code.Model.ValueObject;
 using GameOfLife.Code.Service;
 using NSubstitute;
 using Xunit;
@@ -23,7 +24,7 @@ public class WorldBuilderTests
     public void CreateWorldPopulation_ShouldReturnWorldGridOfGivenDimensions_WhenDimensionsAreGivenInConstructor(int rows, int columns)
     {
         var sut = new WorldBuilder(rows, columns);
-        var emptyList = new List<Cell>();
+        var emptyList = new List<Coordinate>();
         
         var result = sut.CreateWorldPopulation(emptyList);
         
@@ -34,7 +35,7 @@ public class WorldBuilderTests
     [Fact]
     public void CreateWorldPopulation_ShouldChangeGivenCellsToAliveInOutput_WhenGivenListOfCells()
     {
-        var cellsList = new List<Cell>
+        var cellsList = new List<Coordinate>
         {
             new(2, 1),
             new(3, 2),

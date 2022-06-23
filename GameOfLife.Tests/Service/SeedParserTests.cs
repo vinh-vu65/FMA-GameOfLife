@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using GameOfLife.Code.Exceptions;
 using GameOfLife.Code.Model;
+using GameOfLife.Code.Model.ValueObject;
 using GameOfLife.Code.Service;
 using Xunit;
 
