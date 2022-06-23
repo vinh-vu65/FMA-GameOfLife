@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using GameOfLife.Code.Model;
+using GameOfLife.Code.Model.ValueObject;
 using GameOfLife.Code.Service;
 using Xunit;
 
@@ -9,11 +10,14 @@ public class WorldAnalyserTests
 {
     private readonly WorldAnalyser _sut;
     private readonly Cell[,] _world;
+    private readonly Coordinate _coordinate;
 
     public WorldAnalyserTests()
     {
-        _sut = new WorldAnalyser(6, 6);
+        _sut = new WorldAnalyser();
         _world = new World(6, 6).Population;
+        _sut.SetDimensions(_world);
+        _coordinate = new Coordinate(2, 1);
     }
     
     [Fact]
@@ -21,7 +25,7 @@ public class WorldAnalyserTests
     {
         var expectedLength = 8;
         
-        var result = _sut.GetNeighbours(2,1, _world);
+        var result = _sut.GetNeighbours(_coordinate, _world);
         
         Assert.Equal(expectedLength, result.Count);
     }
@@ -41,7 +45,7 @@ public class WorldAnalyserTests
             _world[2, 3]
         };
         
-        var result = _sut.GetNeighbours(2, 1, _world);
+        var result = _sut.GetNeighbours(_coordinate, _world);
         
         Assert.Equal(expected, result);
     }
@@ -61,7 +65,7 @@ public class WorldAnalyserTests
             _world[1, 3]
         };
         
-        var result = _sut.GetNeighbours(2, 0, _world);
+        var result = _sut.GetNeighbours(new Coordinate(2, 0), _world);
         
         Assert.Equal(expected, result);
     }
@@ -81,7 +85,7 @@ public class WorldAnalyserTests
             _world[3, 1]
         };
         
-        var result = _sut.GetNeighbours(0, 2, _world);
+        var result = _sut.GetNeighbours(new Coordinate(0, 2), _world);
         
         Assert.Equal(expected, result);
     }
@@ -101,7 +105,7 @@ public class WorldAnalyserTests
             _world[1, 1]
         };
         
-        var result = _sut.GetNeighbours(0, 0, _world);
+        var result = _sut.GetNeighbours(new Coordinate(0,0), _world);
         
         Assert.Equal(expected, result);
     }
@@ -150,7 +154,7 @@ public class WorldAnalyserTests
         _world[0, 2].IsAlive = true;
         _world[0, 3].IsAlive = true;
         _world[2, 1].IsAlive = true;
-        var expected = _world[1, 2];
+        var expected = _world[1, 2].Coordinate;
 
         var result = _sut.DetermineNextGeneration(_world);
 
@@ -164,7 +168,7 @@ public class WorldAnalyserTests
         _world[2, 1].IsAlive = true;
         _world[0, 3].IsAlive = true;
         _world[1, 2].IsAlive = true;
-        var expected = _world[1, 2];
+        var expected = _world[1, 2].Coordinate;
 
         var result = _sut.DetermineNextGeneration(_world);
 
@@ -179,7 +183,7 @@ public class WorldAnalyserTests
         _world[0, 2].IsAlive = true;
         _world[0, 3].IsAlive = true;
         _world[2, 1].IsAlive = true;
-        var expected = _world[1, 2];
+        var expected = _world[1, 2].Coordinate;
         var expectedLength = 5;
 
         var result = _sut.DetermineNextGeneration(_world);

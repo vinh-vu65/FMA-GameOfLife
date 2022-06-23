@@ -1,4 +1,5 @@
 using GameOfLife.Code.Model;
+using GameOfLife.Code.Model.ValueObject;
 
 namespace GameOfLife.Code.Service;
 
@@ -13,18 +14,18 @@ public class WorldBuilder
         _columns = columns;
     }
     
-    public Cell[,] CreateWorldPopulation(List<Cell> aliveCells)
+    public Cell[,] CreateWorldPopulation(List<Coordinate> liveCells)
     {
         var world = new World(_rows, _columns);
-        GiveLife(aliveCells, world);
+        GiveLife(liveCells, world);
         return world.Population;
     }
 
-    private void GiveLife(List<Cell> cells, World world)
+    private void GiveLife(List<Coordinate> cells, World world)
     {
         foreach (var cell in cells)
         {
-            world.GiveCellLife(cell.X, cell.Y);
+            world.GiveLife(cell);
         }
     }
 }

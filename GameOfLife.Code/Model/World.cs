@@ -1,3 +1,5 @@
+using GameOfLife.Code.Model.ValueObject;
+
 namespace GameOfLife.Code.Model;
 
 public class World
@@ -21,8 +23,8 @@ public class World
         }
     }
 
-    public void GiveCellLife(int x, int y)
+    public void GiveLife(Coordinate cellCoordinate)
     {
-        Population[y, x].IsAlive = true;
+        Population[cellCoordinate.Y, cellCoordinate.X].IsAlive = true;
     }
 }

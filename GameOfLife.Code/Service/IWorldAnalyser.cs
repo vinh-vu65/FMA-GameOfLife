@@ -1,8 +1,9 @@
 using GameOfLife.Code.Model;
+using GameOfLife.Code.Model.ValueObject;
 
 namespace GameOfLife.Code.Service;
 
 public interface IWorldAnalyser
 {
-    List<Cell> DetermineNextGeneration(Cell[,] grid);
+    List<Coordinate> DetermineNextGeneration(Cell[,] population);
 }

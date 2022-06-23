@@ -1,4 +1,5 @@
 using GameOfLife.Code.Model;
+using GameOfLife.Code.Model.ValueObject;
 using Xunit;
 
 namespace GameOfLife.Tests.Model;
@@ -30,8 +31,8 @@ public class WorldTests
     {
         var cell = _sut.Population[y, x];
         
-        Assert.Equal(x, cell.X);
-        Assert.Equal(y, cell.Y);
+        Assert.Equal(x, cell.Coordinate.X);
+        Assert.Equal(y, cell.Coordinate.Y);
     }
 
     [Theory]
@@ -40,7 +41,7 @@ public class WorldTests
     [InlineData(14,9)]
     public void GiveCellLife_ShouldChangeIsAlivePropertyOfCellInPopulation_WhenGivenCellCoordinates(int x, int y)
     {
-        _sut.GiveCellLife(x, y);
+        _sut.GiveLife(new Coordinate(x, y));
         
         Assert.True(_sut.Population[y, x].IsAlive);
     }

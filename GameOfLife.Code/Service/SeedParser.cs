@@ -1,6 +1,7 @@
 using System.Reflection;
 using GameOfLife.Code.Exceptions;
 using GameOfLife.Code.Model;
+using GameOfLife.Code.Model.ValueObject;
 
 namespace GameOfLife.Code.Service;
 
