@@ -36,8 +36,8 @@ public class SeedParserTests
 
         _sut.SetWorldDimensions(file);
         
-        Assert.Equal(expectedRows, _sut.Rows);
-        Assert.Equal(expectedColumns, _sut.Columns);
+        Assert.Equal(expectedRows, _sut.Height);
+        Assert.Equal(expectedColumns, _sut.Width);
     }
 
     [Fact]

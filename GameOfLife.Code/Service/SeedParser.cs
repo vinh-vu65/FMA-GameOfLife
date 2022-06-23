@@ -6,40 +6,41 @@ namespace GameOfLife.Code.Service;
 
 public class SeedParser
 {
-    public int Rows { get; private set; }
-    public int Columns { get; private set; }
+    public int Height { get; private set; }
+    public int Width { get; private set; }
     
     public string[] ReadFile(string fileName)
     {
-        string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), $@"Seeds/{fileName}");
+        var path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!, "Seeds", fileName);
         return File.ReadAllLines(path);
     }
 
-    public void SetWorldDimensions(string[] seed)
+    public void SetWorldDimensions(string[] fileLines)
     {
-        Rows = seed.Length;
-        var lastLine = seed[Rows - 1];
+        Height = fileLines.Length;
+        var lastLine = fileLines[Height - 1];
         if (!lastLine.Contains('*'))
         {
             throw new BoundaryNotFoundException();
         }
         
-        Columns = lastLine.IndexOf('*') + 1;
+        Width = lastLine.IndexOf('*') + 1;
     }
 
-    public List<Coordinate> ParseString(string[] seed)
+    public List<Coordinate> ParseString(string[] fileLines)
     {
         var output = new List<Coordinate>();
-        for (var y = 0; y < Rows; y++)
+        for (var y = 0; y < Height; y++)
         {
-            var line = seed[y];
-            for (var x = 0; x < line.Length; x++)
+            var row = fileLines[y];
+            for (var x = 0; x < row.Length; x++)
             {
-                if (line.Length > Columns)
+                if (row.Length > Width)
                 {
                     throw new TokenOutOfBoundsException(y);
                 }
-                var token = line[x];
+                
+                var token = row[x];
                 if (token == '#')
                 {
                     output.Add(new(x,y));
