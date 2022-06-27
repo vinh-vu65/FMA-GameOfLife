@@ -18,6 +18,7 @@ public class FileReader : IReader
 
     private string CreateFilePath(string fileName)
     {
-        return Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!, "Seeds", fileName);
+        var seedsFolder = "Seeds";
+        return Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!, seedsFolder, fileName);
     }
 }
