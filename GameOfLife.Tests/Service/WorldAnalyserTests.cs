@@ -7,21 +7,21 @@ namespace GameOfLife.Tests.Service;
 public class WorldAnalyserTests
 {
     private readonly WorldAnalyser _sut;
-    private readonly Cell[,] _world;
+    private readonly World _world;
 
     public WorldAnalyserTests()
     {
         _sut = new WorldAnalyser();
-        _world = new World(6, 6).Population;
+        _world = new World(6, 6);
     }
 
     [Fact]
     public void DetermineNextGeneration_ShouldIncludeCell_WhenGivenCellIsNotAliveAndHasExactlyThreeLiveNeighbours()
     {
-        _world[0, 2].IsAlive = true;
-        _world[0, 3].IsAlive = true;
-        _world[2, 1].IsAlive = true;
-        var expected = _world[1, 2].Coordinate;
+        _world.Population[0, 2].IsAlive = true;
+        _world.Population[0, 3].IsAlive = true;
+        _world.Population[2, 1].IsAlive = true;
+        var expected = _world.Population[1, 2].Coordinate;
 
         var result = _sut.DetermineNextGeneration(_world);
 
@@ -32,10 +32,10 @@ public class WorldAnalyserTests
     [Fact]
     public void DetermineNextGeneration_ShouldIncludeCell_WhenGivenCellIsAliveAndHasTwoLiveNeighbours()
     {
-        _world[2, 1].IsAlive = true;
-        _world[0, 3].IsAlive = true;
-        _world[1, 2].IsAlive = true;
-        var expected = _world[1, 2].Coordinate;
+        _world.Population[2, 1].IsAlive = true;
+        _world.Population[0, 3].IsAlive = true;
+        _world.Population[1, 2].IsAlive = true;
+        var expected = _world.Population[1, 2].Coordinate;
 
         var result = _sut.DetermineNextGeneration(_world);
 
@@ -46,11 +46,11 @@ public class WorldAnalyserTests
     [Fact]
     public void DetermineNextGeneration_ShouldIncludeCell_WhenGivenCellIsAliveAndHasThreeLiveNeighbours()
     {
-        _world[1, 2].IsAlive = true;
-        _world[0, 2].IsAlive = true;
-        _world[0, 3].IsAlive = true;
-        _world[2, 1].IsAlive = true;
-        var expected = _world[1, 2].Coordinate;
+        _world.Population[1, 2].IsAlive = true;
+        _world.Population[0, 2].IsAlive = true;
+        _world.Population[0, 3].IsAlive = true;
+        _world.Population[2, 1].IsAlive = true;
+        var expected = _world.Population[1, 2].Coordinate;
         var expectedLength = 5;
 
         var result = _sut.DetermineNextGeneration(_world);

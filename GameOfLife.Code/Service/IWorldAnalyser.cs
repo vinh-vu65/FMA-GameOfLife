@@ -5,5 +5,5 @@ namespace GameOfLife.Code.Service;
 
 public interface IWorldAnalyser
 {
-    List<Coordinate> DetermineNextGeneration(Cell[,] population);
+    List<Coordinate> DetermineNextGeneration(World world);
 }
