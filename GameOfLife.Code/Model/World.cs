@@ -5,18 +5,22 @@ namespace GameOfLife.Code.Model;
 public class World
 {
     public Cell[,] Population { get; }
+    public int Height { get; }
+    public int Width { get; }
 
-    public World(int rows, int columns)
+    public World(int height, int width)
     {
-        Population = new Cell[rows,columns];
-        PopulateWorld(rows, columns);
+        Height = height;
+        Width = width;
+        Population = new Cell[height,width];
+        PopulateWorld(height, width);
     }
 
-    private void PopulateWorld(int rows, int columns)
+    private void PopulateWorld(int height, int width)
     {
-        for (var i = 0; i < rows ; i++)
+        for (var i = 0; i < height ; i++)
         {
-            for (var j = 0; j < columns; j++)
+            for (var j = 0; j < width; j++)
             {
                 Population[i, j] = new Cell(j, i);
             }
