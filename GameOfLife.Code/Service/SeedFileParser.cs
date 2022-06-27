@@ -1,22 +1,27 @@
-using System.Reflection;
 using GameOfLife.Code.Exceptions;
-using GameOfLife.Code.Model;
+using GameOfLife.Code.IO;
 using GameOfLife.Code.Model.ValueObject;
 
 namespace GameOfLife.Code.Service;
 
-public class SeedParser
+public class SeedFileParser : ISeedParser
 {
     public int Height { get; private set; }
     public int Width { get; private set; }
-    
-    public string[] ReadFile(string fileName)
+    private readonly string[] _seedLines;
+
+    public SeedFileParser(IReader reader)
     {
-        var path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!, "Seeds", fileName);
-        return File.ReadAllLines(path);
+        _seedLines = reader.Read();
+        SetWorldDimensions(_seedLines);
+    }
+    
+    public List<Coordinate> ParseSeed()
+    {
+        return ParseString(_seedLines);
     }
 
-    public void SetWorldDimensions(string[] fileLines)
+    private void SetWorldDimensions(string[] fileLines)
     {
         Height = fileLines.Length;
         var lastLine = fileLines[Height - 1];
@@ -28,7 +33,7 @@ public class SeedParser
         Width = lastLine.IndexOf('*') + 1;
     }
 
-    public List<Coordinate> ParseString(string[] fileLines)
+    private List<Coordinate> ParseString(string[] fileLines)
     {
         var output = new List<Coordinate>();
         for (var y = 0; y < Height; y++)
