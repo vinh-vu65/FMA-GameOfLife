@@ -31,13 +31,13 @@ public class WorldAnalyser : IWorldAnalyser
         return output;
     }
     
-    public void SetDimensions(Cell[,] population)
+    private void SetDimensions(Cell[,] population)
     {
         _height = population.GetLength(0);
         _width = population.GetLength(1);
     }
 
-    public List<Cell> GetNeighbours(Coordinate cell, Cell[,] population)
+    private List<Cell> GetNeighbours(Coordinate cell, Cell[,] population)
     {
         var neighbours = new List<Cell>();
 
@@ -62,5 +62,5 @@ public class WorldAnalyser : IWorldAnalyser
         return neighbours;
     }
     
-    public int CountAliveCells(List<Cell> neighbours) => neighbours.Count(x => x.IsAlive);
+    private int CountAliveCells(List<Cell> neighbours) => neighbours.Count(x => x.IsAlive);
 }
