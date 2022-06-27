@@ -6,7 +6,7 @@ namespace GameOfLife.Tests.IO;
 public class FileReaderTests
 {
     [Fact]
-    public void Read_ShouldReturnAStringArray_WhenConstructorIsGivenAFileNameInSeedsFolder()
+    public void Read_ShouldReturnAStringArrayCorrespondingToFileLines_WhenConstructorIsGivenAFileNameInSeedsFolder()
     {
         var fileName = "testSeed.txt";
         var sut = new FileReader(fileName);
