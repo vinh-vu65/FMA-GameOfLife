@@ -5,18 +5,18 @@ namespace GameOfLife.Code.Service;
 
 public class WorldBuilder
 {
-    private readonly int _rows;
-    private readonly int _columns;
+    private readonly int _height;
+    private readonly int _width;
     
-    public WorldBuilder(int rows, int columns)
+    public WorldBuilder(int height, int width)
     {
-        _rows = rows;
-        _columns = columns;
+        _height = height;
+        _width = width;
     }
     
     public Cell[,] CreateWorldPopulation(List<Coordinate> liveCells)
     {
-        var world = new World(_rows, _columns);
+        var world = new World(_height, _width);
         GiveLife(liveCells, world);
         return world.Population;
     }
