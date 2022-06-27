@@ -14,11 +14,11 @@ public class WorldBuilder
         _width = width;
     }
     
-    public Cell[,] CreateWorldPopulation(List<Coordinate> liveCells)
+    public World CreateWorld(List<Coordinate> liveCells)
     {
         var world = new World(_height, _width);
         GiveLife(liveCells, world);
-        return world.Population;
+        return world;
     }
 
     private void GiveLife(List<Coordinate> cells, World world)

@@ -10,26 +10,26 @@ namespace GameOfLife.Tests.Controller;
 public class WorldBuilderTests
 {
     private readonly WorldBuilder _sut;
-    private readonly int _rows = 6;
-    private readonly int _columns = 6;
+    private readonly int _height = 6;
+    private readonly int _width = 6;
 
     public WorldBuilderTests()
     {
-        _sut = new WorldBuilder(_rows, _columns);
+        _sut = new WorldBuilder(_height, _width);
     }
     
     [Theory]
     [InlineData(10, 10)]
     [InlineData(5, 15)]
-    public void CreateWorldPopulation_ShouldReturnWorldGridOfGivenDimensions_WhenDimensionsAreGivenInConstructor(int rows, int columns)
+    public void CreateWorldPopulation_ShouldReturnWorldGridOfGivenDimensions_WhenDimensionsAreGivenInConstructor(int height, int width)
     {
-        var sut = new WorldBuilder(rows, columns);
+        var sut = new WorldBuilder(height, width);
         var emptyList = new List<Coordinate>();
         
-        var result = sut.CreateWorldPopulation(emptyList);
+        var result = sut.CreateWorld(emptyList);
         
-        Assert.Equal(rows, result.GetLength(0));
-        Assert.Equal(columns, result.GetLength(1));
+        Assert.Equal(height, result.Height);
+        Assert.Equal(width, result.Width);
     }
 
     [Fact]
@@ -42,11 +42,11 @@ public class WorldBuilderTests
             new(0, 0)
         };
 
-        var result = _sut.CreateWorldPopulation(cellsList);
+        var result = _sut.CreateWorld(cellsList);
 
-        Assert.True(result[1,2].IsAlive);
-        Assert.True(result[2,3].IsAlive);
-        Assert.True(result[0,0].IsAlive);
-        Assert.False(result[5,5].IsAlive);
+        Assert.True(result.Population[1,2].IsAlive);
+        Assert.True(result.Population[2,3].IsAlive);
+        Assert.True(result.Population[0,0].IsAlive);
+        Assert.False(result.Population[5,5].IsAlive);
     }
 }
