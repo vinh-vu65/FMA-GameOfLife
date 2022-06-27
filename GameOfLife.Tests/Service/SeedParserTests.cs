@@ -1,50 +1,69 @@
 using System.Collections.Generic;
 using GameOfLife.Code.Exceptions;
-using GameOfLife.Code.Model;
+using GameOfLife.Code.IO;
 using GameOfLife.Code.Model.ValueObject;
 using GameOfLife.Code.Service;
+using NSubstitute;
 using Xunit;
 
 namespace GameOfLife.Tests.Service;
 
 public class SeedParserTests
 {
-    private readonly SeedParser _sut;
-    private readonly string _fileName;
-
-    public SeedParserTests()
+    private readonly IReader _fileReader = Substitute.For<IReader>();
+    
+    [Fact]
+    public void Constructor_ShouldSetWorldHeightAndWidth_WhenReaderOutputHasAsteriskCharacterInLastElementOfArray()
     {
-        _sut = new SeedParser();
-        _fileName = "testSeed.txt";
+        var expectedRows = 10;
+        var expectedColumns = 5;
+        var output = new string[]
+        {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "    *"
+        };
+        _fileReader.Read().Returns(output);
+
+        var sut = new SeedFileParser(_fileReader);
+        
+        Assert.Equal(expectedRows, sut.Height);
+        Assert.Equal(expectedColumns, sut.Width);
     }
     
     [Fact]
-    public void ReadFile_ShouldReturnStringArray_WhenGivenFilePath()
+    public void Constructor_ShouldThrowException_WhenLastLineInFileDoesNotContainAsterisk()
     {
-        var expectedLength = 10;
+        var output = new string[]
+        {
+            "",
+            ""
+        };
+        _fileReader.Read().Returns(output);
         
-        var result = _sut.ReadFile(_fileName);
-        
-        Assert.Equal(expectedLength, result.Length);
-    }
-
-    [Fact]
-    public void SetWorldDimensions_ShouldSetRowsAndColumns_WhenTxtFileHasAsteriskCharacterOnBottomRightCorner()
-    {
-        var expectedRows = 10;
-        var expectedColumns = 50;
-        var file = _sut.ReadFile(_fileName);
-
-        _sut.SetWorldDimensions(file);
-        
-        Assert.Equal(expectedRows, _sut.Height);
-        Assert.Equal(expectedColumns, _sut.Width);
+        Assert.Throws<BoundaryNotFoundException>(() => new SeedFileParser(_fileReader));
     }
 
     [Fact]
     public void
-        ParseString_ShouldReturnListOfCellsWithCorrespondingCoordinates_WhenGivenFileWithHashtagDenotingLiveCell()
+        ParseSeed_ShouldReturnListOfCellsWithCorrespondingCoordinates_WhenGivenFileWithHashtagDenotingLiveCell()
     {
+        var output = new string[]
+        {
+            "###",
+            "",
+            "",
+            " #",
+            "####",
+            " #       *"
+        };
         var expected = new List<Coordinate>
         {
             new(0,0),
@@ -57,30 +76,25 @@ public class SeedParserTests
             new(3,4),
             new(1,5)
         };
-        var file = _sut.ReadFile(_fileName);
-        _sut.SetWorldDimensions(file);
+        _fileReader.Read().Returns(output);
+        var sut = new SeedFileParser(_fileReader);
 
-        var result = _sut.ParseString(file);
+        var result = sut.ParseSeed();
         
         Assert.Equal(expected, result);
     }
 
     [Fact]
-    public void ParseString_ShouldThrowAnException_WhenGivenFileHasLiveCellWithXValueGreaterThanXValueOfAsterisk()
+    public void ParseSeed_ShouldThrowAnException_WhenGivenFileHasLiveCellWithXValueGreaterThanXValueOfAsterisk()
     {
-        var fileName = "outOfBoundsExceptionTest.txt";
-        var file = _sut.ReadFile(fileName);
-        _sut.SetWorldDimensions(file);
+        var output = new string[]
+        {
+            "     #",
+            "  *"
+        };
+        _fileReader.Read().Returns(output);
+        var sut = new SeedFileParser(_fileReader);
 
-        Assert.Throws<TokenOutOfBoundsException>(() => _sut.ParseString(file));
-    }
-
-    [Fact]
-    public void SetWorldDimensions_ShouldThrowException_WhenLastLineInFileDoesNotContainAsterisk()
-    {
-        var fileName = "boundaryNotFoundExceptionTest.txt";
-        var file = _sut.ReadFile(fileName);
-        
-        Assert.Throws<BoundaryNotFoundException>(() => _sut.SetWorldDimensions(file));
+        Assert.Throws<TokenOutOfBoundsException>(() => sut.ParseSeed());
     }
 }
