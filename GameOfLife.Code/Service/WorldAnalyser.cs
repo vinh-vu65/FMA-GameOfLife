@@ -5,21 +5,16 @@ namespace GameOfLife.Code.Service;
 
 public class WorldAnalyser : IWorldAnalyser
 {
-    private int _height;
-    private int _width;
-
-    public List<Coordinate> DetermineNextGeneration(Cell[,] population)
+    public List<Coordinate> DetermineNextGeneration(World world)
     {
         var output = new List<Coordinate>();
 
-        SetDimensions(population);
-        
-        for (var i = 0; i < _height; i++)
+        for (var i = 0; i < world.Height; i++)
         {
-            for (var j = 0; j < _width; j++)
+            for (var j = 0; j < world.Width; j++)
             {
-                var cell = population[i, j];
-                var neighbours = GetNeighbours(cell.Coordinate, population);
+                var cell = world.Population[i, j];
+                var neighbours = GetNeighbours(cell.Coordinate, world);
                 var liveNeighbours = CountAliveCells(neighbours);
                 if (cell.IsAlive && liveNeighbours is < 2 or > 3) continue;
                 if (!cell.IsAlive && liveNeighbours != 3) continue;
@@ -31,13 +26,7 @@ public class WorldAnalyser : IWorldAnalyser
         return output;
     }
     
-    private void SetDimensions(Cell[,] population)
-    {
-        _height = population.GetLength(0);
-        _width = population.GetLength(1);
-    }
-
-    private List<Cell> GetNeighbours(Coordinate cell, Cell[,] population)
+    private List<Cell> GetNeighbours(Coordinate cell, World world)
     {
         var neighbours = new List<Cell>();
 
@@ -50,12 +39,12 @@ public class WorldAnalyser : IWorldAnalyser
                 var neighbourX = j;
                 
                 if (i == y && j == x) continue;
-                if (i < 0) neighbourY = _height - 1;
-                if (j < 0) neighbourX = _width - 1;
-                if (i > _height - 1) neighbourY = 0;
-                if (j > _width - 1) neighbourX = 0;
+                if (i < 0) neighbourY = world.Height - 1;
+                if (j < 0) neighbourX = world.Width - 1;
+                if (i > world.Height - 1) neighbourY = 0;
+                if (j > world.Width - 1) neighbourX = 0;
                 
-                neighbours.Add(population[neighbourY, neighbourX]);
+                neighbours.Add(world.Population[neighbourY, neighbourX]);
             }
         }
 
