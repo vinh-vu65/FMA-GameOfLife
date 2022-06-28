@@ -11,4 +11,9 @@ public class Cell
     {
         Coordinate = new Coordinate(x, y);
     }
+
+    public string Display()
+    {
+        return IsAlive ? "1" : " ";
+    }
 }
