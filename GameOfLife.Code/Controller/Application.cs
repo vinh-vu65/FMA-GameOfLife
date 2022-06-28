@@ -25,7 +25,7 @@ public class Application
             Console.Clear();
             _writer.Write(renderedWorld);
             _gameService.Tick();
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
             generation++;
         }
     }
