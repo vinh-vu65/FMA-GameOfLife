@@ -14,6 +14,6 @@ public class Cell
 
     public string Display()
     {
-        return IsAlive ? "1" : " ";
+        return IsAlive ? "1" : ".";
     }
 }
