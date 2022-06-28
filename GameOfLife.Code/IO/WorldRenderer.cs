@@ -3,7 +3,7 @@ using GameOfLife.Code.Model;
 
 namespace GameOfLife.Code.IO;
 
-public class ConsoleRenderer : IWorldRenderer
+public class WorldRenderer : IWorldRenderer
 {
     public string Render(World world)
     {
