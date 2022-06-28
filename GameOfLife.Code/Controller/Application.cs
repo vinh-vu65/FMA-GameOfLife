@@ -4,19 +4,29 @@ namespace GameOfLife.Code.Controller;
 
 public class Application
 {
-    private readonly IReader _reader;
     private readonly IWriter _writer;
-    private IGameService _gameService;
+    private readonly IGameService _gameService;
+    private readonly IWorldRenderer _renderer;
 
-    public Application(IReader reader, IWriter writer, IGameService gameService)
+    public Application(IWriter writer, IGameService gameService, IWorldRenderer renderer)
     {
-        _reader = reader;
         _writer = writer;
         _gameService = gameService;
+        _renderer = renderer;
     }
 
-    public void Setup()
+    public void Run(int generationLimit)
     {
-        _gameService.GetSeed();
+        var generation = 1;
+        Console.ForegroundColor = ConsoleColor.Green;
+        while (generation <= generationLimit)
+        {
+            var renderedWorld = _renderer.Render(_gameService.CurrentWorld);
+            Console.Clear();
+            _writer.Write(renderedWorld);
+            _gameService.Tick();
+            Thread.Sleep(1000);
+            generation++;
+        }
     }
 }
