@@ -1,39 +1,37 @@
 using System.Collections.Generic;
-using GameOfLife.Code.Model;
 using GameOfLife.Code.Model.ValueObject;
 using GameOfLife.Code.Service;
-using NSubstitute;
 using Xunit;
 
-namespace GameOfLife.Tests.Controller;
+namespace GameOfLife.Tests.Service;
 
 public class WorldBuilderTests
 {
     private readonly WorldBuilder _sut;
-    private readonly int _height = 6;
-    private readonly int _width = 6;
+    private const int Height = 6;
+    private const int Width = 6;
 
     public WorldBuilderTests()
     {
-        _sut = new WorldBuilder(_height, _width);
+        _sut = new WorldBuilder(Height, Width);
     }
     
     [Theory]
     [InlineData(10, 10)]
     [InlineData(5, 15)]
-    public void CreateWorldPopulation_ShouldReturnWorldGridOfGivenDimensions_WhenDimensionsAreGivenInConstructor(int height, int width)
+    public void BuildWorld_ShouldReturnWorldGridOfGivenDimensions_WhenDimensionsAreGivenInConstructor(int height, int width)
     {
         var sut = new WorldBuilder(height, width);
         var emptyList = new List<Coordinate>();
         
-        var result = sut.CreateWorld(emptyList);
+        var result = sut.BuildWorld(emptyList);
         
         Assert.Equal(height, result.Height);
         Assert.Equal(width, result.Width);
     }
 
     [Fact]
-    public void CreateWorldPopulation_ShouldChangeGivenCellsToAliveInOutput_WhenGivenListOfCells()
+    public void BuildWorld_ShouldChangeGivenCellsToAliveInOutput_WhenGivenListOfCells()
     {
         var cellsList = new List<Coordinate>
         {
@@ -42,7 +40,7 @@ public class WorldBuilderTests
             new(0, 0)
         };
 
-        var result = _sut.CreateWorld(cellsList);
+        var result = _sut.BuildWorld(cellsList);
 
         Assert.True(result.Population[1,2].IsAlive);
         Assert.True(result.Population[2,3].IsAlive);

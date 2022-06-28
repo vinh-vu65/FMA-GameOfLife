@@ -3,7 +3,7 @@ using GameOfLife.Code.Model.ValueObject;
 
 namespace GameOfLife.Code.Service;
 
-public class WorldBuilder
+public class WorldBuilder : IWorldBuilder
 {
     private readonly int _height;
     private readonly int _width;
@@ -14,7 +14,7 @@ public class WorldBuilder
         _width = width;
     }
     
-    public World CreateWorld(List<Coordinate> liveCells)
+    public World BuildWorld(List<Coordinate> liveCells)
     {
         var world = new World(_height, _width);
         GiveLife(liveCells, world);
