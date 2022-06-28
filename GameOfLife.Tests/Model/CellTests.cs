@@ -20,13 +20,13 @@ public class CellTests
     }
     
     [Fact]
-    public void Display_ShouldReturnASingleSpace_WhenCellIsNotAlive()
+    public void Display_ShouldReturnAFullStop_WhenCellIsNotAlive()
     {
         var sut = new Cell(0,0)
         {
             IsAlive = false
         };
-        var expected = " ";
+        var expected = ".";
 
         var result = sut.Display();
         
