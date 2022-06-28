@@ -1,8 +1,11 @@
 using GameOfLife.Code.Model;
+using GameOfLife.Code.Model.ValueObject;
 
 namespace GameOfLife.Code.Controller;
 
 public interface IGameService
 {
-    List<Cell> GetSeed();
+    World CurrentWorld { get; }
+    
+    void Tick();
 }
