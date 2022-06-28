@@ -46,8 +46,8 @@ public class SeedFileParser : ISeedParser
                     throw new TokenOutOfBoundsException(y);
                 }
                 
-                var token = row[x];
-                if (token == '#')
+                var currentToken = row[x];
+                if (currentToken == '#')
                 {
                     output.Add(new(x,y));
                 }
