@@ -2,11 +2,11 @@ using System.Reflection;
 
 namespace GameOfLife.Code.IO;
 
-public class FileReader : IReader
+public class SeedFileReader : ISeedReader
 {
     private readonly string _filePath;
     
-    public FileReader(string fileName)
+    public SeedFileReader(string fileName)
     {
         _filePath = CreateFilePath(fileName);
     }

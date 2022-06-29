@@ -1,6 +1,6 @@
 namespace GameOfLife.Code.IO;
 
-public interface IReader
+public interface ISeedReader
 {
     string[] Read();
 }

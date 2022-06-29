@@ -10,7 +10,7 @@ namespace GameOfLife.Tests.Service;
 
 public class SeedParserTests
 {
-    private readonly IReader _fileReader = Substitute.For<IReader>();
+    private readonly ISeedReader _seedReader = Substitute.For<ISeedReader>();
     
     [Fact]
     public void Constructor_ShouldSetWorldHeightAndWidth_WhenReaderOutputHasAsteriskCharacterInLastElementOfArray()
@@ -30,9 +30,9 @@ public class SeedParserTests
             "",
             "    *"
         };
-        _fileReader.Read().Returns(output);
+        _seedReader.Read().Returns(output);
 
-        var sut = new SeedFileParser(_fileReader);
+        var sut = new SeedFileParser(_seedReader);
         
         Assert.Equal(expectedRows, sut.Height);
         Assert.Equal(expectedColumns, sut.Width);
@@ -46,9 +46,9 @@ public class SeedParserTests
             "",
             ""
         };
-        _fileReader.Read().Returns(output);
+        _seedReader.Read().Returns(output);
         
-        Assert.Throws<BoundaryNotFoundException>(() => new SeedFileParser(_fileReader));
+        Assert.Throws<BoundaryNotFoundException>(() => new SeedFileParser(_seedReader));
     }
 
     [Fact]
@@ -76,8 +76,8 @@ public class SeedParserTests
             new(3,4),
             new(1,5)
         };
-        _fileReader.Read().Returns(output);
-        var sut = new SeedFileParser(_fileReader);
+        _seedReader.Read().Returns(output);
+        var sut = new SeedFileParser(_seedReader);
 
         var result = sut.ParseSeed();
         
@@ -92,8 +92,8 @@ public class SeedParserTests
             "     #",
             "  *"
         };
-        _fileReader.Read().Returns(output);
-        var sut = new SeedFileParser(_fileReader);
+        _seedReader.Read().Returns(output);
+        var sut = new SeedFileParser(_seedReader);
 
         Assert.Throws<TokenOutOfBoundsException>(() => sut.ParseSeed());
     }

@@ -10,9 +10,9 @@ public class SeedFileParser : ISeedParser
     public int Width { get; private set; }
     private readonly string[] _seedLines;
 
-    public SeedFileParser(IReader reader)
+    public SeedFileParser(ISeedReader seedReader)
     {
-        _seedLines = reader.Read();
+        _seedLines = seedReader.Read();
         SetWorldDimensions(_seedLines);
     }
     
@@ -49,7 +49,7 @@ public class SeedFileParser : ISeedParser
                 var currentToken = row[x];
                 if (currentToken == '#')
                 {
-                    output.Add(new(x,y));
+                    output.Add(new Coordinate(x,y));
                 }
             }
         }
