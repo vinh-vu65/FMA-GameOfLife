@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using GameOfLife.Code.Exceptions;
 using GameOfLife.Code.IO;
-using GameOfLife.Code.Model.ValueObject;
+using GameOfLife.Code.Model.DataObject;
 using GameOfLife.Code.Service;
 using NSubstitute;
 using Xunit;
@@ -17,6 +17,7 @@ public class SeedParserTests
     {
         var expectedRows = 10;
         var expectedColumns = 5;
+        var testFileName = "test";
         var output = new string[]
         {
             "",
@@ -30,9 +31,9 @@ public class SeedParserTests
             "",
             "    *"
         };
-        _seedReader.Read().Returns(output);
+        _seedReader.Read(testFileName).Returns(output);
 
-        var sut = new SeedFileParser(_seedReader);
+        var sut = new SeedFileParser(_seedReader, testFileName);
         
         Assert.Equal(expectedRows, sut.Height);
         Assert.Equal(expectedColumns, sut.Width);
@@ -41,21 +42,22 @@ public class SeedParserTests
     [Fact]
     public void Constructor_ShouldThrowException_WhenLastLineInFileDoesNotContainAsterisk()
     {
+        var testFileName = "test";
         var output = new string[]
         {
             "",
             ""
         };
-        _seedReader.Read().Returns(output);
+        _seedReader.Read(testFileName).Returns(output);
         
-        Assert.Throws<BoundaryNotFoundException>(() => new SeedFileParser(_seedReader));
+        Assert.Throws<BoundaryNotFoundException>(() => new SeedFileParser(_seedReader, testFileName));
     }
 
     [Fact]
-    public void
-        ParseSeed_ShouldReturnListOfCellsWithCorrespondingCoordinates_WhenGivenFileWithHashtagDenotingLiveCell()
+    public void ParseSeed_ShouldReturnListOfCellsWithCorrespondingCoordinates_WhenGivenFileWithHashtagDenotingLiveCell()
     {
-        var output = new string[]
+        var testFileName = "test";
+        var output = new[]
         {
             "###",
             "",
@@ -76,8 +78,8 @@ public class SeedParserTests
             new(3,4),
             new(1,5)
         };
-        _seedReader.Read().Returns(output);
-        var sut = new SeedFileParser(_seedReader);
+        _seedReader.Read(testFileName).Returns(output);
+        var sut = new SeedFileParser(_seedReader, testFileName);
 
         var result = sut.ParseSeed();
         
@@ -87,13 +89,14 @@ public class SeedParserTests
     [Fact]
     public void ParseSeed_ShouldThrowAnException_WhenGivenFileHasLiveCellWithXValueGreaterThanXValueOfAsterisk()
     {
+        var test = "test";
         var output = new string[]
         {
             "     #",
             "  *"
         };
-        _seedReader.Read().Returns(output);
-        var sut = new SeedFileParser(_seedReader);
+        _seedReader.Read(test).Returns(output);
+        var sut = new SeedFileParser(_seedReader, test);
 
         Assert.Throws<TokenOutOfBoundsException>(() => sut.ParseSeed());
     }

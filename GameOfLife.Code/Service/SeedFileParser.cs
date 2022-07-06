@@ -1,6 +1,6 @@
 using GameOfLife.Code.Exceptions;
 using GameOfLife.Code.IO;
-using GameOfLife.Code.Model.ValueObject;
+using GameOfLife.Code.Model.DataObject;
 
 namespace GameOfLife.Code.Service;
 
@@ -10,9 +10,9 @@ public class SeedFileParser : ISeedParser
     public int Width { get; private set; }
     private readonly string[] _seedLines;
 
-    public SeedFileParser(ISeedReader seedReader)
+    public SeedFileParser(ISeedReader seedReader, string fileName)
     {
-        _seedLines = seedReader.Read();
+        _seedLines = seedReader.Read(fileName);
         SetWorldDimensions(_seedLines);
     }
     
