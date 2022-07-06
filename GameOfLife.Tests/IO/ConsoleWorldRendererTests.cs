@@ -4,12 +4,12 @@ using Xunit;
 
 namespace GameOfLife.Tests.IO;
 
-public class WorldRendererTests
+public class ConsoleWorldRendererTests
 {
     [Fact]
     public void Render_ShouldReturnStringDisplayingEachCellAndBordersAroundWorld_WhenGivenWorld()
     {
-        var sut = new WorldRenderer();
+        var sut = new ConsoleWorldRenderer();
         var testWorld = new World(4, 4);
         testWorld.Population[3, 3].IsAlive = true;
         testWorld.Population[1, 1].IsAlive = true;
