@@ -4,21 +4,43 @@ namespace GameOfLife.Code.IO;
 
 public class SeedFileReader : ISeedReader
 {
-    private readonly string _filePath;
+    public Dictionary<string, string> SeedFilesMenu { get; }
+    private readonly string _basePath;
     
-    public SeedFileReader(string fileName)
+    public SeedFileReader(string seedsFolderName)
     {
-        _filePath = CreateFilePath(fileName);
+        _basePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!, seedsFolderName);
+        SeedFilesMenu = CreateSeedFilesMenu();
     }
     
-    public string[] Read()
+    public string[] Read(string filePath)
     {
-        return File.ReadAllLines(_filePath);
+        var seedPath = JoinFileToPath(filePath);
+        return File.ReadAllLines(seedPath);
     }
 
-    private string CreateFilePath(string fileName)
+    private string JoinFileToPath(string fileName)
     {
-        var seedsFolder = "Seeds";
-        return Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!, seedsFolder, fileName);
+        return Path.Combine(_basePath, fileName);
+    }
+
+    public string[] GetFilenames()
+    {
+        var d = new DirectoryInfo(_basePath);
+        var files = d.GetFiles();
+        return files.Select(f => f.Name).OrderBy(name => name).ToArray();
+    }
+    
+    private Dictionary<string, string> CreateSeedFilesMenu()
+    {
+        var fileNames = GetFilenames();
+        var output = new Dictionary<string, string>();
+
+        for (var i = 0; i < fileNames.Length; i++)
+        {
+            output.Add($"{i + 1}", fileNames[i]);
+        }
+
+        return output;
     }
 }
