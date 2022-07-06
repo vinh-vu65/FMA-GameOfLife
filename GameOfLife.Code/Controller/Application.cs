@@ -1,32 +1,50 @@
+using GameOfLife.Code.Enums;
 using GameOfLife.Code.IO;
+using GameOfLife.Code.Service;
 
 namespace GameOfLife.Code.Controller;
 
 public class Application
 {
-    private readonly IWriter _writer;
+    private readonly IOutput _output;
     private readonly IGameService _gameService;
-    private readonly IWorldRenderer _renderer;
+    private readonly GameSpeed _gameSpeed;
+    private readonly int _generationLimit;
 
-    public Application(IWriter writer, IGameService gameService, IWorldRenderer renderer)
+    public Application(IOutput output, IGameService gameService, GameSpeed gameSpeed, int generationLimit) 
     {
-        _writer = writer;
+        _output = output;
         _gameService = gameService;
-        _renderer = renderer;
+        _gameSpeed = gameSpeed;
+        _generationLimit = generationLimit;
     }
 
-    public void Run(int generationLimit)
+    public void Run()
     {
         var generation = 1;
-        Console.ForegroundColor = ConsoleColor.Green;
-        while (generation <= generationLimit)
+        _output.SetColour();
+        while (generation <= _generationLimit && !_gameService.IsWorldStable)
         {
-            var renderedWorld = _renderer.Render(_gameService.CurrentWorld);
-            Console.Clear();
-            _writer.Write(renderedWorld);
-            _gameService.Tick();
-            Thread.Sleep(500);
+            PrintWorldAndTick(generation);
+            if (_gameService.IsWorldStable) break;
+            GameSpeedDelay();
             generation++;
         }
+        if (_gameService.IsWorldStable) _output.Write(GameMessageBuilder.WorldStabilised(generation));
+        _output.Write(GameMessageBuilder.SimulationEnded());
+    }
+    
+    private void GameSpeedDelay()
+    {
+        Thread.Sleep((int) _gameSpeed);
+    }
+
+    private void PrintWorldAndTick(int generation)
+    {
+        var renderedWorld = _output.RenderWorld(_gameService.CurrentWorld);
+        _output.Reset();
+        _output.Write(GameMessageBuilder.DisplayGeneration(generation));
+        _output.Write(renderedWorld);
+        _gameService.Tick();
     }
 }
