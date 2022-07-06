@@ -2,8 +2,8 @@ namespace GameOfLife.Code.Enums;
 
 public enum GameSpeed
 {
-    Slow = 1,
-    Regular,
-    Fast,
-    NoDelay
+    NoDelay,
+    Fast = 100,
+    Regular = 400,
+    Slow = 750
 }
