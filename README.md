@@ -7,6 +7,10 @@ You can read all about it here:
 https://github.com/MYOB-Technology/General_Developer/blob/main/katas/kata-conways-game-of-life/kata-conways-game-of-life.md 
 
 ## Getting started
+Ensure you have .NET 6 installed, which you can find here:
+
+https://dotnet.microsoft.com/en-us/download/dotnet/6.0
+
 Clone the repository to your local machine and cd into the GameOfLife.Code project folder. 
 
 ```
