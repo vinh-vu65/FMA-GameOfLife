@@ -1,4 +1,4 @@
-using GameOfLife.Code.Model.ValueObject;
+using GameOfLife.Code.Model.DataObject;
 
 namespace GameOfLife.Code.Model;
 

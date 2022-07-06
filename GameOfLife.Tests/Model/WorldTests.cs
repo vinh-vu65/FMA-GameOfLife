@@ -1,5 +1,5 @@
 using GameOfLife.Code.Model;
-using GameOfLife.Code.Model.ValueObject;
+using GameOfLife.Code.Model.DataObject;
 using Xunit;
 
 namespace GameOfLife.Tests.Model;
