@@ -1,6 +1,6 @@
 namespace GameOfLife.Code.IO;
 
-public interface IInputReader
+public interface IInput
 {
     string Read();
 }
