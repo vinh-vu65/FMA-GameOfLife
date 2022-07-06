@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using GameOfLife.Code.Model.ValueObject;
+using GameOfLife.Code.Model.DataObject;
 using GameOfLife.Code.Service;
 using Xunit;
 
@@ -19,7 +19,7 @@ public class WorldBuilderTests
     [Theory]
     [InlineData(10, 10)]
     [InlineData(5, 15)]
-    public void BuildWorld_ShouldReturnWorldGridOfGivenDimensions_WhenDimensionsAreGivenInConstructor(int height, int width)
+    public void BuildWorld_ShouldReturnWorldWithGivenDimensions_WhenDimensionsAreGivenInConstructor(int height, int width)
     {
         var sut = new WorldBuilder(height, width);
         var emptyList = new List<Coordinate>();
