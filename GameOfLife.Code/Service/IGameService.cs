@@ -1,11 +1,11 @@
 using GameOfLife.Code.Model;
-using GameOfLife.Code.Model.ValueObject;
 
-namespace GameOfLife.Code.Controller;
+namespace GameOfLife.Code.Service;
 
 public interface IGameService
 {
     World CurrentWorld { get; }
+    bool IsWorldStable { get; }
     
     void Tick();
 }
