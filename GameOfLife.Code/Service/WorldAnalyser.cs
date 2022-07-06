@@ -1,13 +1,26 @@
 using GameOfLife.Code.Model;
-using GameOfLife.Code.Model.ValueObject;
+using GameOfLife.Code.Model.DataObject;
 
 namespace GameOfLife.Code.Service;
 
 public class WorldAnalyser : IWorldAnalyser
 {
-    public List<Coordinate> DetermineNextGeneration(World world)
+    public List<Coordinate>? NextGeneration { get; private set; }
+    private List<Coordinate> _currentGeneration;
+
+    public WorldAnalyser(List<Coordinate> seed)
     {
-        var output = new List<Coordinate>();
+        _currentGeneration = seed;
+    }
+
+    public void DetermineNextGeneration(World world)
+    {
+        if (NextGeneration is not null)
+        {
+            _currentGeneration = NextGeneration;
+        }
+        
+        var nextGeneration = new List<Coordinate>();
 
         for (var i = 0; i < world.Height; i++)
         {
@@ -19,13 +32,18 @@ public class WorldAnalyser : IWorldAnalyser
                 if (cell.IsAlive && liveNeighbours is < 2 or > 3) continue;
                 if (!cell.IsAlive && liveNeighbours != 3) continue;
 
-                output.Add(cell.Coordinate);
+                nextGeneration.Add(cell.Coordinate);
             }
         }
 
-        return output;
+        NextGeneration = nextGeneration;
     }
-    
+
+    public bool IsWorldStable()
+    {
+        return NextGeneration is not null && new HashSet<Coordinate>(_currentGeneration).SetEquals(NextGeneration);
+    }   
+
     private List<Cell> GetNeighbours(Coordinate cell, World world)
     {
         var neighbours = new List<Cell>();
