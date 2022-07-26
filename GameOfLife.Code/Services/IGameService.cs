@@ -1,6 +1,6 @@
-using GameOfLife.Code.Model;
+using GameOfLife.Code.Models;
 
-namespace GameOfLife.Code.Service;
+namespace GameOfLife.Code.Services;
 
 public interface IGameService
 {

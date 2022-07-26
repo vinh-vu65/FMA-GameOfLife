@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using GameOfLife.Code.Exceptions;
 using GameOfLife.Code.IO;
-using GameOfLife.Code.Model.DataObject;
-using GameOfLife.Code.Service;
+using GameOfLife.Code.Models.DataObjects;
+using GameOfLife.Code.Services;
 using NSubstitute;
 using Xunit;
 
-namespace GameOfLife.Tests.Service;
+namespace GameOfLife.Tests.Services;
 
 public class SeedParserTests
 {

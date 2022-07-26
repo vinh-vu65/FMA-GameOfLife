@@ -1,5 +1,5 @@
-﻿using GameOfLife.Code.Controller;
-using GameOfLife.Code.IO;
+﻿using GameOfLife.Code.IO;
+using GameOfLife.Code.ServiceManagers;
 
 var seedReader = new SeedFileReader();
 var renderer = new ConsoleWorldRenderer();

@@ -1,5 +1,5 @@
 using GameOfLife.Code.IO;
-using GameOfLife.Code.Model;
+using GameOfLife.Code.Models;
 using Xunit;
 
 namespace GameOfLife.Tests.IO;

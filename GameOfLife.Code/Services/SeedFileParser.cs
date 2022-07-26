@@ -1,8 +1,8 @@
 using GameOfLife.Code.Exceptions;
 using GameOfLife.Code.IO;
-using GameOfLife.Code.Model.DataObject;
+using GameOfLife.Code.Models.DataObjects;
 
-namespace GameOfLife.Code.Service;
+namespace GameOfLife.Code.Services;
 
 public class SeedFileParser : ISeedParser
 {

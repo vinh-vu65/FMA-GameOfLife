@@ -1,4 +1,4 @@
-using GameOfLife.Code.Model;
+using GameOfLife.Code.Models;
 
 namespace GameOfLife.Code.IO;
 

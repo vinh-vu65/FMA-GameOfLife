@@ -1,5 +1,5 @@
 using System.Text;
-using GameOfLife.Code.Model;
+using GameOfLife.Code.Models;
 
 namespace GameOfLife.Code.IO;
 

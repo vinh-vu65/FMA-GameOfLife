@@ -1,6 +1,6 @@
-using GameOfLife.Code.Model.DataObject;
+using GameOfLife.Code.Models.DataObjects;
 
-namespace GameOfLife.Code.Model;
+namespace GameOfLife.Code.Models;
 
 public class World
 {

@@ -1,7 +1,7 @@
-using GameOfLife.Code.Model;
+using GameOfLife.Code.Models;
 using Xunit;
 
-namespace GameOfLife.Tests.Model;
+namespace GameOfLife.Tests.Models;
 
 public class CellTests
 {

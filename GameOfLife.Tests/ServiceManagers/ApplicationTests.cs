@@ -1,12 +1,12 @@
-using GameOfLife.Code.Controller;
 using GameOfLife.Code.Enums;
 using GameOfLife.Code.IO;
-using GameOfLife.Code.Model;
-using GameOfLife.Code.Service;
+using GameOfLife.Code.Models;
+using GameOfLife.Code.ServiceManagers;
+using GameOfLife.Code.Services;
 using NSubstitute;
 using Xunit;
 
-namespace GameOfLife.Tests.Controller;
+namespace GameOfLife.Tests.ServiceManagers;
 
 public class ApplicationTests
 {
