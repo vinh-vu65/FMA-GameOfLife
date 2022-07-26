@@ -1,8 +1,8 @@
-using GameOfLife.Code.Model;
-using GameOfLife.Code.Model.DataObject;
+using GameOfLife.Code.Models;
+using GameOfLife.Code.Models.DataObjects;
 using Xunit;
 
-namespace GameOfLife.Tests.Model;
+namespace GameOfLife.Tests.Models;
 
 public class WorldTests
 {

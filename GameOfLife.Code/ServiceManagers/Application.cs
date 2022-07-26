@@ -1,8 +1,8 @@
 using GameOfLife.Code.Enums;
 using GameOfLife.Code.IO;
-using GameOfLife.Code.Service;
+using GameOfLife.Code.Services;
 
-namespace GameOfLife.Code.Controller;
+namespace GameOfLife.Code.ServiceManagers;
 
 public class Application
 {

@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using GameOfLife.Code.Model;
-using GameOfLife.Code.Model.DataObject;
-using GameOfLife.Code.Service;
+using GameOfLife.Code.Models;
+using GameOfLife.Code.Models.DataObjects;
+using GameOfLife.Code.Services;
 using NSubstitute;
 using Xunit;
 
-namespace GameOfLife.Tests.Service;
+namespace GameOfLife.Tests.Services;
 
 public class GameServiceTests
 {

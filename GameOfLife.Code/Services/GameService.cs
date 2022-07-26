@@ -1,7 +1,7 @@
-using GameOfLife.Code.Model;
-using GameOfLife.Code.Model.DataObject;
+using GameOfLife.Code.Models;
+using GameOfLife.Code.Models.DataObjects;
 
-namespace GameOfLife.Code.Service;
+namespace GameOfLife.Code.Services;
 
 public class GameService : IGameService
 {
