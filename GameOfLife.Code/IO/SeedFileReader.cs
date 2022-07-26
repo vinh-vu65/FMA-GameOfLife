@@ -1,3 +1,4 @@
+using System.Configuration;
 using System.Reflection;
 
 namespace GameOfLife.Code.IO;
@@ -7,9 +8,9 @@ public class SeedFileReader : ISeedReader
     public Dictionary<string, string> SeedFilesMenu { get; }
     private readonly string _basePath;
     
-    public SeedFileReader(string seedsFolderName)
+    public SeedFileReader()
     {
-        _basePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!, seedsFolderName);
+        _basePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!, ConfigurationManager.AppSettings.Get("seedsFolder")!);
         SeedFilesMenu = CreateSeedFilesMenu();
     }
     
